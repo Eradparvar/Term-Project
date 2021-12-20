@@ -1,5 +1,8 @@
 package com.example.termproject;
 
+
+
+import android.content.Context;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -11,9 +14,12 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import com.example.termproject.databinding.ActivityMainBinding;
+import com.google.android.material.textfield.TextInputEditText;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+
 import androidx.appcompat.widget.Toolbar;
 
 public class MainActivity extends AppCompatActivity {
@@ -29,10 +35,13 @@ private ActivityMainBinding binding;
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         FloatingActionButton fab = findViewById(R.id.fab);
+        TextInputEditText textInputEditText = findViewById(R.id.textInputEditText);
+        TextView textView = findViewById(R.id.textView);
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make (toolbar,"Hello, world!", Snackbar.LENGTH_SHORT).show ();
+               textView.setText(textInputEditText.getText());
             }
         });
     }
@@ -53,9 +62,15 @@ private ActivityMainBinding binding;
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        }else if (id == R.id.action_about_item){
+            showAboutItem(this);
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void showAboutItem(Context context){
+       Utils.showInfoDialog(context, "About me", "This the 1st page. It Echos text input");
     }
 
 
