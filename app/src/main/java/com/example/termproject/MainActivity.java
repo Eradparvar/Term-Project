@@ -6,6 +6,7 @@ import static com.example.termproject.R.layout;
 import static com.example.termproject.R.string;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
@@ -62,6 +63,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        menu.findItem(id.action_auto_save_checkox).setChecked(mKeyAutoSave);
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -79,7 +86,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showAboutItem(Context context) {
-        Utils.showInfoDialog(context, "About me", "This the 1st page. It Echos text input");
+        Intent intent = new Intent(getApplicationContext(), AboutMe.class);
+        startActivity(intent);
     }
 
     private void toggleAutoSave(MenuItem item) {
@@ -92,8 +100,9 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.clear();
         editor.putBoolean(getString(string.autoSave), mKeyAutoSave);
+        if(mKeyAutoSave){
         editor.putString(mKeyTextView, String.valueOf(textView.getText()));
-        editor.putString(mKeyTextInputView, String.valueOf(textInputEditText.getText()));
+        editor.putString(mKeyTextInputView, String.valueOf(textInputEditText.getText()));}
         editor.apply();
         Toast.makeText(this, "Save Data",
                 Toast.LENGTH_LONG).show();
