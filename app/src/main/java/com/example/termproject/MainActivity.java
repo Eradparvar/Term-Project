@@ -45,12 +45,7 @@ public class MainActivity extends AppCompatActivity {
         this.textInputEditText = findViewById(id.textInputEditText);
         this.textView = findViewById(id.textView);
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                textView.setText(textInputEditText.getText());
-            }
-        });
+        fab.setOnClickListener(view -> textView.setText(textInputEditText.getText()));
         restoreAppSettingsFromPrefs();
 
     }
@@ -122,9 +117,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStop() {
+    protected void onPause() {
         saveToSharedPref();
-        super.onStop();
-    }
+        super.onPause();
+   }
 
 }
